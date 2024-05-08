@@ -8,12 +8,10 @@ async function main() {
         deployer.address
     );
 
-    console.log("Account balance:", (await deployer.getBalance()).toString());
-
     const RockPaperScissors = await ethers.getContractFactory("RockPaperScissors");
     const rockPaperScissors = await RockPaperScissors.deploy();
 
-    console.log("RockPaperScissors address:", rockPaperScissors.address);
+    console.log("RockPaperScissors address:", rockPaperScissors.getAddress());
 }
 
 main().catch((error) => {
