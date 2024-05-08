@@ -8,7 +8,7 @@ contract RockPaperScissors is Ownable {
     enum Choice { Rock, Paper, Scissors }
     
     uint256 public gameId; 
-    uint256 public entryFee = 0.01 ether;
+    uint256 public entryFee = 0.001 ether;
 
     event GameResult(
         uint256 indexed gameId,

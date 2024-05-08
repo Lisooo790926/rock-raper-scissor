@@ -10,8 +10,8 @@ contract AutonomousAgent {
         gameContract = RockPaperScissors(_gameContract);
     }
 
-    function playGame(uint8 choice, uint256 joinFee) external {
-        gameContract.play{value: joinFee}(choice);
+    function playGame(uint8 choice) external {
+        gameContract.play{value: gameContract.entryFee() }(choice);
     }
 
     // Function to receive ETH

@@ -1,13 +1,15 @@
 {
   "name": "rock-paper-scissor",
   "version": "1.0.0",
-  "main": "index.js",
+  "author": "lisoooo",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy:dev": "hardhat run scripts/deploy.ts --network dev"
   },
-  "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "rock-paper-scissor",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^4.7.3",
