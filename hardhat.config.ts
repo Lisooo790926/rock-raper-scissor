@@ -33,19 +33,15 @@ task("playGame", "Play with the AutonomousAgent contract", async (_, { ethers })
 
     const RockPaperScissors = await ethers.getContractFactory("RockPaperScissors");
     const rockPaperScissors = RockPaperScissors.attach(rockPaperScissorsAddress);
-    await rockPaperScissors.once("GameResult", (gameId, player, computerChoice, playerChoice, playerWon) => {
-      console.log("wait until the event");
-      console.log('Game result:', gameId, player, computerChoice, playerChoice, playerWon);
-      rockPaperScissors.removeAllListeners("GameResult");
-    });
+    console.log('Playing game with RockPaperScissors contract:', rockPaperScissorsAddress);
     
-    console.log('Playing game with AutonomousAgent contract:', aaAddress);
     const AutonomousAgent = await ethers.getContractFactory("AutonomousAgent");
     const autonomousAgent = AutonomousAgent.attach(aaAddress) as AutonomousAgent;
+    console.log('Playing game with AutonomousAgent contract:', aaAddress);
 
     const [player] = await ethers.getSigners();
     try {
-        const tx = await autonomousAgent.connect(player).playGame(0).then((tx) => tx.wait());
+        const tx = await autonomousAgent.connect(player).playGame(1).then((tx) => tx.wait());
         console.log('Game finish', tx?.hash);
 
         const balance = await ethers.provider.getBalance(rockPaperScissors.getAddress());
