@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { RockPaperScissors } from "../typechain-types";
-import { any } from "hardhat/internal/core/params/argumentTypes";
 
 describe("RockPaperScissors", function () {
     let rockPaperScissors: RockPaperScissors;
@@ -23,7 +22,7 @@ describe("RockPaperScissors", function () {
             const blockTime = await getBlockTimestamp(tx.blockHash!);
             const computerPlay = blockTime % 3;
             await expect(tx).to.emit(rockPaperScissors, "GameResult")
-                .withArgs(0, otherAccount.address, computerPlay, 0, isWin(0, computerPlay));
+                .withArgs(0, otherAccount.address, computerPlay, 0, gameResult(0, computerPlay));
         });
 
         it("Should not accept a play without valid entry fee", async function () {
@@ -49,7 +48,7 @@ describe("RockPaperScissors", function () {
             const blockTime = await getBlockTimestamp(tx!.blockHash!);
             const computerPlay = blockTime % 3;
             await expect(tx).to.emit(rockPaperScissors, "GameResult")
-                .withArgs(1, otherAccount.address, computerPlay, 0, isWin(0, computerPlay));
+                .withArgs(1, otherAccount.address, computerPlay, 0, gameResult(0, computerPlay));
         });
     });
 
@@ -89,6 +88,8 @@ async function getBlockTimestamp(blockHash: string): Promise<number> {
     return block?.timestamp ?? 0;
 }
 
-function isWin(mine: number, yours: number): boolean {
-    return mine === 0 && yours === 2 || mine === 1 && yours === 0 || mine === 2 && yours === 1;
+function gameResult(mine: number, yours: number): number {
+    if(mine === yours) return 2
+    if(mine === 0 && yours === 2 || mine === 1 && yours === 0 || mine === 2 && yours === 1) return 1
+    return 0
 }

@@ -9,12 +9,6 @@ describe("AutonomousAgent", function () {
     before(async function () {
         const RockPaperScissors = await ethers.getContractFactory("RockPaperScissors");
         rockPaperScissors = await RockPaperScissors.deploy();
-        
-        // listen to event
-        const event = rockPaperScissors.getEvent("GameResult")
-        await rockPaperScissors.on(event, (gameId, player, computerChoice, playerChoice, playerWon) => {
-            console.log('Game result:', gameId, player, computerChoice, playerChoice, playerWon);
-        });
 
         const AutonomousAgent = await ethers.getContractFactory("AutonomousAgent");
         autonomousAgent = await AutonomousAgent.deploy(await rockPaperScissors.getAddress());
@@ -35,7 +29,7 @@ describe("AutonomousAgent", function () {
             const computerPlay = blockTime % 3;
             
             await expect(tx).to.emit(rockPaperScissors, "GameResult")
-                .withArgs(0, await autonomousAgent.getAddress(), computerPlay, 0, isWin(0, computerPlay));
+                .withArgs(0, await autonomousAgent.getAddress(), computerPlay, 0, gameResult(0, computerPlay));
         });
     });
 });
@@ -46,6 +40,8 @@ async function getBlockTimestamp(blockHash: string): Promise<number> {
     return block?.timestamp ?? 0;
 }
 
-function isWin(mine: number, yours: number): boolean {
-    return mine === 0 && yours === 2 || mine === 1 && yours === 0 || mine === 2 && yours === 1;
+function gameResult(mine: number, yours: number): number {
+    if(mine === yours) return 2
+    if(mine === 0 && yours === 2 || mine === 1 && yours === 0 || mine === 2 && yours === 1) return 1
+    return 0
 }

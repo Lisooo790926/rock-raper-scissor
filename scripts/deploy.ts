@@ -9,6 +9,10 @@ async function main() {
     const rockPaperScissors = await RockPaperScissors.deploy();
     const rockPaperScissorsAddress = await rockPaperScissors.getAddress();
     console.log("RockPaperScissors address:", rockPaperScissorsAddress);
+    // listen to event
+    await rockPaperScissors.on("GameResult", (gameId, player, computerChoice, playerChoice, playerWon) => {
+        console.log('Game result:', gameId, player, computerChoice, playerChoice, playerWon);
+    });
 
     const AAContract = await ethers.getContractFactory("AutonomousAgent");
     const aaContract = await AAContract.deploy(rockPaperScissorsAddress);
