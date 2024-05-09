@@ -3,10 +3,7 @@ import { ethers } from 'hardhat';
 async function main() {
     const [owner] = await ethers.getSigners();
 
-    console.log(
-        "Deploying contracts with the account:",
-        owner.address
-    );
+    console.log("Deploying contracts with the account:", owner.address);
 
     const RockPaperScissors = await ethers.getContractFactory("RockPaperScissors");
     const rockPaperScissors = await RockPaperScissors.deploy();
@@ -14,15 +11,15 @@ async function main() {
     console.log("RockPaperScissors address:", rockPaperScissorsAddress);
 
     const AAContract = await ethers.getContractFactory("AutonomousAgent");
-    const aaContract = await AAContract.deploy(rockPaperScissors.getAddress());
+    const aaContract = await AAContract.deploy(rockPaperScissorsAddress);
     const aaAddress = await aaContract.getAddress();
     console.log("AAContract address:", aaAddress);
 
     // init the fund
-    await owner.sendTransaction({ to: rockPaperScissorsAddress, value: ethers.parseEther("0.1") })
+    await owner.sendTransaction({ to: rockPaperScissorsAddress, value: ethers.parseEther("0.02") })
         .then((tx) => tx.wait());
         
-    await owner.sendTransaction({ to: aaAddress, value: ethers.parseEther("0.1") })
+    await owner.sendTransaction({ to: aaAddress, value: ethers.parseEther("0.02") })
         .then((tx) => tx.wait());
 }
 

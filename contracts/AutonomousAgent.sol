@@ -14,6 +14,5 @@ contract AutonomousAgent {
         gameContract.play{value: gameContract.entryFee() }(choice);
     }
 
-    // Function to receive ETH
     receive() external payable {}
 }

@@ -15,7 +15,7 @@ contract RockPaperScissors is Ownable {
         address indexed player,
         uint8 computerChoice,
         uint8 playerChoice,
-        bool playerWon
+        uint8 playerWon
     );
 
     constructor() {
@@ -25,12 +25,15 @@ contract RockPaperScissors is Ownable {
     function play(uint8 playerChoice) public payable {
         require(msg.value == entryFee, "Invalid ETH amount");
         require(playerChoice <= 2, "Invalid choice");
+        require(address(this).balance >= entryFee * 2, "Insufficient contract balance to pay out a win");
 
         uint8 computerChoice = generateRandomChoice();
-        bool playerWon = determineWinner(playerChoice, computerChoice);
+        uint8 playerWon = determineWinner(playerChoice, computerChoice);
 
-        if (playerWon) {
+        if (playerWon == 1) {
             payable(msg.sender).transfer(msg.value * 2);
+        } else if (playerWon == 2) {
+            payable(msg.sender).transfer(msg.value);
         }
 
         emit GameResult(gameId, msg.sender, computerChoice, playerChoice, playerWon);
@@ -41,15 +44,19 @@ contract RockPaperScissors is Ownable {
         return uint8(block.timestamp % 3);
     }
 
-    function determineWinner(uint8 playerChoice, uint8 computerChoice) private pure returns (bool) {
+    function determineWinner(uint8 playerChoice, uint8 computerChoice) private pure returns (uint8) {
         if (playerChoice == computerChoice) {
-            return false;
+            return 2;
         }
         
         // 0: Rock, 1: Paper, 2: Scissors
-        return (playerChoice == 0 && computerChoice == 2) || 
-               (playerChoice == 1 && computerChoice == 0) ||
-               (playerChoice == 2 && computerChoice == 1);
+        if((playerChoice == 0 && computerChoice == 2)  || 
+            (playerChoice == 1 && computerChoice == 0) ||
+            (playerChoice == 2 && computerChoice == 1)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     receive() external payable {}

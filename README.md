@@ -1,13 +1,15 @@
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
+# Rock Paper Scissor Game Contract
+This project is for playing Rock Paper Scissor Game
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
+-- compile the contract
+npm run compile 
+
+-- start local node and deploy contract and interact with contract
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+npm run deploy 
+npx hardhat playGame
+
+-- test contract
+npm run test
 ```
