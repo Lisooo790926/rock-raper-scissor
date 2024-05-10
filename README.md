@@ -63,7 +63,7 @@ Integrate with Alchemy SDK https://accountkit.alchemy.com/packages/aa-alchemy \
 Add below ts file
 1. account.ts : for creating SmartContractWallet
 2. deposit.ts : deposit init fund into SmartContractWallet
-3. waitTxn.ts : waiting for transaction finish when sendUserOperation
+3. waitTxn.ts : waiting for transaction finish when sendUserOperation \
 Also add three tasks for AA wallet
 ```shell
 1. npx hardhat createAccount --network dev
