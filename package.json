@@ -11,6 +11,8 @@
   "license": "ISC",
   "description": "rock-paper-scissor",
   "devDependencies": {
+    "@alchemy/aa-alchemy": "^3.12.3",
+    "@alchemy/aa-core": "^3.12.3",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^4.7.3",
     "chai": "^4.4.1",
