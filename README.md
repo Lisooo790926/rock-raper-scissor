@@ -50,7 +50,7 @@ npx hardhat playGame --network dev
 ```
 ### Contract Address:
 - AAContract: https://sepolia.etherscan.io/address/0x5ee0cd2e3c49fb817573432944dbbadf745d3a9b
-- RockPaperScissorsContract: https://sepolia.etherscan.io/address/0x6caec2274305c6b3cd991dd46bb1442f30afc637 \
+- RockPaperScissorsContract: https://sepolia.etherscan.io/address/0x3b4D3b01FAa992dE10061ad1f011e1DE1cBaaeF2 \
 
 ### Testing result:
 - left window is the event listener
@@ -58,7 +58,23 @@ npx hardhat playGame --network dev
 ![image](https://github.com/Lisooo790926/rock-raper-scissor/assets/48560984/da0d75be-25fb-4805-b044-961b9871399d)
 
 
+### AA Wallet
+Integrate with Alchemy SDK https://accountkit.alchemy.com/packages/aa-alchemy \
+Add below ts file
+1. account.ts : for creating SmartContractWallet
+2. deposit.ts : deposit init fund into SmartContractWallet
+3. waitTxn.ts : waiting for transaction finish when sendUserOperation
+Also add three tasks for AA wallet
+```shell
+1. npx hardhat createAccount --network dev
+-- for create smartContractAccount
 
+2. npx hardhat transfer --network dev
+-- deposit init amount into above account
 
+3. npx hardhat playGameAA --network dev
+-- interact with above contract
+```
+Interact transaction https://sepolia.etherscan.io/address/0x3b4D3b01FAa992dE10061ad1f011e1DE1cBaaeF2
 
 
