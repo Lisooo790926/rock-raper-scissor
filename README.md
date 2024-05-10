@@ -61,20 +61,21 @@ npx hardhat playGame --network dev
 ### AA Wallet
 Integrate with Alchemy SDK https://accountkit.alchemy.com/packages/aa-alchemy \
 Add below ts file
-1. account.ts : for creating SmartContractWallet
-2. deposit.ts : deposit init fund into SmartContractWallet
-3. waitTxn.ts : waiting for transaction finish when sendUserOperation \
+   1. account.ts : for creating SmartContractWallet
+   2. deposit.ts : deposit init fund into SmartContractWallet
+   3. waitTxn.ts : waiting for transaction finish when sendUserOperation \
+
 Also add three tasks for AA wallet
-```shell
-1. npx hardhat createAccount --network dev
--- for create smartContractAccount
-
-2. npx hardhat transfer --network dev
--- deposit init amount into above account
-
-3. npx hardhat playGameAA --network dev
--- interact with above contract
-```
+   ```shell
+   1. npx hardhat createAccount --network dev
+   -- for create smartContractAccount
+   
+   2. npx hardhat transfer --network dev
+   -- deposit init amount into above account
+   
+   3. npx hardhat playGameAA --network dev
+   -- interact with above contract
+   ```
 Interact transaction https://sepolia.etherscan.io/address/0x3b4D3b01FAa992dE10061ad1f011e1DE1cBaaeF2
 
 
